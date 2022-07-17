@@ -1,7 +1,9 @@
 package ar.com.tasks.service;
 
 import ar.com.tasks.exceptions.ObjectNotFoundException;
+import ar.com.tasks.models.Folder;
 import ar.com.tasks.models.Task;
+import ar.com.tasks.repository.FolderRepository;
 import ar.com.tasks.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,10 @@ import java.util.Optional;
 public class TaskServiceImpl implements TaskService{
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private FolderRepository folderRepository;
+
     @Override
     public Task findByID(Long id) {
         Optional<Task> task = taskRepository.findById(id);
@@ -27,8 +33,10 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public void create(Task task) {
+    public void create(Folder folder, Task task) {
         task.setId(null);
+        folder.addTask(task);
+        folderRepository.save(folder);
         taskRepository.save(task);
     }
 

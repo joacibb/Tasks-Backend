@@ -1,6 +1,8 @@
 package ar.com.tasks.controller;
 
+import ar.com.tasks.models.Folder;
 import ar.com.tasks.models.Task;
+import ar.com.tasks.service.FolderService;
 import ar.com.tasks.service.TaskService;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private FolderService folderService;
+
     //**********************| GET |********************************
     @GetMapping(value="/task/{id}")
     public Task findByID(@PathVariable("id") Long idTask){
@@ -22,9 +27,10 @@ public class TaskController {
 
     //**********************| POST |********************************
     @JsonManagedReference
-    @PostMapping(value="/task")
-    public void create(@RequestBody Task task){
-        taskService.create(task);
+    @PostMapping(value="/task/{folder}")
+    public void create(@PathVariable String folder,@RequestBody Task task){
+       Folder folder1 = folderService.findByName(folder);
+        taskService.create(folder1,task);
     }
 
     //**********************| PUT |**********************************
