@@ -26,7 +26,7 @@ public class Task {
         this.id = id;
     }
 
-    public boolean isMark() {
+    public boolean getMark() {
         return mark;
     }
 
