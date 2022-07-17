@@ -63,4 +63,13 @@ public class TaskServiceImpl implements TaskService{
             );
         }
     }
+
+    @Override
+    public void mark(Long id) {
+        Task task = taskRepository.findById(id).orElse(null);
+        if(task != null){
+            task.changeMark();
+            taskRepository.save(task);
+        }
+    }
 }

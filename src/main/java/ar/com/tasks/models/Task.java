@@ -1,15 +1,13 @@
 package ar.com.tasks.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="tasks")
 public class Task {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="mark")
@@ -40,5 +38,9 @@ public class Task {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void changeMark() {
+        mark = !mark;
     }
 }

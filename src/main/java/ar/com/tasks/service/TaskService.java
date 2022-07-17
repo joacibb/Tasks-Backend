@@ -11,4 +11,6 @@ public interface TaskService {
     void update(Long id, Task task);
 
     void delete(Long id);
+
+    void mark(Long id);
 }

@@ -2,6 +2,7 @@ package ar.com.tasks.controller;
 
 import ar.com.tasks.models.Task;
 import ar.com.tasks.service.TaskService;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class TaskController {
     }
 
     //**********************| POST |********************************
+    @JsonManagedReference
     @PostMapping(value="/task")
     public void create(@RequestBody Task task){
         taskService.create(task);
@@ -32,6 +34,10 @@ public class TaskController {
         taskService.update(idTask,task);
     }
 
+    @PutMapping(value="/task/mark/{id}")
+    public void mark(@PathVariable("id") Long idTask){
+        taskService.mark(idTask);
+    }
     //**********************| DELETE |********************************
 
     @DeleteMapping(value="/task/{id}")
