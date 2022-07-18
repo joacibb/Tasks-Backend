@@ -46,4 +46,8 @@ public class Folder {
             tasks.remove(task);
         }
     }
+
+    public List<Task> getTasks(){
+        return tasks;
+    }
 }
