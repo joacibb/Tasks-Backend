@@ -19,15 +19,10 @@ public class TaskController {
     @Autowired
     private FolderService folderService;
 
-    //**********************| GET |********************************
-    @GetMapping(value="/task/{id}")
-    public Task findByID(@PathVariable("id") Long idTask){
-        return taskService.findByID(idTask);
-    }
 
     //**********************| POST |********************************
     @JsonManagedReference
-    @PostMapping(value="/task/{folder}")
+    @PostMapping(value="/folders/{folder}")
     public void create(@PathVariable String folder,@RequestBody Task task){
        Folder folder1 = folderService.findByName(folder);
         taskService.create(folder1,task);
@@ -35,18 +30,19 @@ public class TaskController {
 
     //**********************| PUT |**********************************
 
-    @PutMapping(value="/task/{id}")
-    public void update(@PathVariable("id") Long idTask,@RequestBody Task task){
-        taskService.update(idTask,task);
+    @PutMapping(value="/folders/{folder}/{id}")
+    public void update(@PathVariable("id") Long idTask,@PathVariable("folder") String folder,@RequestBody Task task){
+        if(folderService.findByName(folder).getTask(idTask)!=null){
+        taskService.update(idTask,task);}
     }
 
-    @PutMapping(value="/task/mark/{id}")
+    @PutMapping(value="/folders/{folder}/mark/{id}")
     public void mark(@PathVariable("id") Long idTask){
         taskService.mark(idTask);
     }
     //**********************| DELETE |********************************
 
-    @DeleteMapping(value="/task/{id}")
+    @DeleteMapping(value="/folders/{folder}/{id}")
     public void delete(@PathVariable("id") Long idTask){
         taskService.delete(idTask);
     }

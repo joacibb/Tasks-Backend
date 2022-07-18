@@ -13,7 +13,7 @@ public class Folder {
     @Column(name="name")
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     List<Task> tasks;
 
     public Long getId() {
@@ -49,5 +49,16 @@ public class Folder {
 
     public List<Task> getTasks(){
         return tasks;
+    }
+
+    public Task getTask(Long id){
+        Task toRet = null;
+        for (Task task : tasks) {
+            if(task.getId().equals(id)){
+                toRet=task;
+                break;
+            }
+        }
+        return toRet;
     }
 }

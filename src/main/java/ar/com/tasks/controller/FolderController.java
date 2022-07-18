@@ -20,6 +20,8 @@ public class FolderController {
         folderService.create(folder);
     }
 
+    @GetMapping(value="/folders")
+    public List<Folder> getAll(){return folderService.findAll();}
 
     @GetMapping(value="/folders/{nameFolder}")
     public List<Task> viewItems(@PathVariable("nameFolder") String folderName){
